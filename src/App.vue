@@ -4,4 +4,8 @@
   <router-view />
 </template>
 
-<style scoped></style>
+<style>
+#app {
+  overflow: hidden;
+}
+</style>

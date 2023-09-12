@@ -1,12 +1,14 @@
 <script>
 import firstView from "./views/firstView.vue";
 import secondView from "./views/secondView.vue";
+import Navigation from "./components/Navigation.vue";
 
 export default {
   name: "Home",
   components: {
     firstView,
     secondView,
+    Navigation,
   },
   mounted() {
     const intervalId = setInterval(() => {
@@ -42,7 +44,7 @@ export default {
 </script>
 
 <template>
-  <NavigationPC />
+  <Navigation />
   <div class="dashboard-wrapper">
     <div v-if="btnFirstPage2SecondPage == false">
       <firstView ref="refFirstView"></firstView>

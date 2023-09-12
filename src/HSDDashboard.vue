@@ -5,7 +5,6 @@ import secondView from "./views/secondView.vue";
 export default {
   name: "HSD",
   components: {
-    NavigationSidebar,
     secondView,
   },
   mounted() {
