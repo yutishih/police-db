@@ -1,0 +1,24 @@
+{
+	"folders": [
+		{
+			"path": "C:/xampp/htdocs/xampp/import-excel"
+		},
+		{
+			"path": "C:/xampp/htdocs/magento2/app/code/Center"
+		},
+		{
+			"path": "../../optical-experiment-web"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../nodeJS"
+		}
+	],
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": []
+	}
+}

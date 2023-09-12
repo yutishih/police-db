@@ -1,0 +1,23 @@
+
+.myShowTable-title{
+    font-weight: bold; 
+    font-size: 24px ;
+    color: rgb(12, 12, 12)
+}
+
+.myShowTable-content{
+    color: rgba(78, 78, 70, 0.514);
+    font-weight: bold; 
+    font-size: 24px ;
+}
+
+.myShowTable-wrapper {
+    width: 70%; 
+    height: 40%;
+}
+
+.mySmallPieChartInTabel-title{
+    font-family: 'Microsoft JhengHei';
+    font-size: 24px ;
+    text-align: center;
+}
