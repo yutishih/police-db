@@ -11,14 +11,11 @@ const router = createRouter({
 
         },
         {
-            path: "/hsd",
-            name: 'HSD',
-            component: () => import('../HSDDashboard.vue'),
-        },
-        {
-            path: "/tem-home",
+            path: "/thome",
             name: '臨時首頁',
             component: () => import('../TemporaryHome.vue'),
+            //params: update url
+            props: (route) => ({ view: route.query.view })
         }
 
     ]

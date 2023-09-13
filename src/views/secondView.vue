@@ -23,8 +23,25 @@ export default {
     userLogin,
     watchScreenSize,
   },
-  props: ["dictHealthSafety", "dictEnvironmentalFriendly", "dictWorkerSafety"],
+  props: [
+    "dictHealthSafety",
+    "dictEnvironmentalFriendly",
+    "dictWorkerSafety",
+    "params",
+  ],
   mounted() {
+    //Making sure the props have been loaded
+    //if not, do it
+    if (!this.dictHealthSafety) {
+      this.getHealthSafetyValue();
+    }
+    if (!this.dictEnvironmentalFriendly) {
+      this.getEnvironmentalFriendlyValue();
+    }
+    if (!this.dictWorkerSafety) {
+      this.getWorkSafeValue();
+    }
+
     this.showHSDPieChart();
   },
   watch: {
@@ -364,158 +381,163 @@ export default {
 </script>
 
 <template>
-  <div v-if="btnChange2importExcel == false">
-    <div v-if="btnClickMode == false">
-      <div class="center-row">
-        <!----環保---->
-        <div class="text-center">
-          <div class="section-title">
-            <label
-              style="
-                font-family: Microsoft JhengHei;
-                font-size: 36px;
-                text-align: center;
-                font-weight: bold;
-              "
-              >HSD公共安全指標</label
-            ><br /><br /><br />
+  <div>
+    <div v-if="btnChange2importExcel == false">
+      <div v-if="btnClickMode == false">
+        <div class="center-row">
+          <!----環保---->
+          <div class="text-center">
+            <div class="section-title">
+              <label
+                style="
+                  font-family: Microsoft JhengHei;
+                  font-size: 36px;
+                  text-align: center;
+                  font-weight: bold;
+                "
+                >HSD公共安全指標</label
+              ><br /><br /><br />
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <div>
+          <canvas ref="pieChart"></canvas>
+        </div>
+        <br />
+
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <div class="text-center">
+              <div class="section-title">
+                <label
+                  style="
+                    font-family: Microsoft JhengHei;
+                    font-size: 36px;
+                    text-align: center;
+                  "
+                  >衛生</label
+                ><br /><br /><br />
+              </div>
+            </div>
+            <MidPieChart
+              refs="refsMidPieChart"
+              :colorUpperRight="colorUpperRightHealthSafety"
+              :colorBottomRight="colorBottomRightHealthSafety"
+              :colorBottomLeft="colorBottomLeftHealthSafety"
+              :colorUpperLeft="colorUpperLeftHealthSafety"
+              :modeOfPieChart="['母性保護', '關懷率', '健康促進', '職業病預防']"
+            >
+            </MidPieChart>
+            <!---------------<img :src="require('@/assets/healthPieChart.png')" style="width: 500px; height: 500px">-------------------->
+          </div>
+          <div class="col-md-4">
+            <div class="text-center">
+              <div class="section-title">
+                <label
+                  style="
+                    font-family: Microsoft JhengHei;
+                    font-size: 36px;
+                    text-align: center;
+                  "
+                  >環保</label
+                ><br /><br /><br />
+              </div>
+            </div>
+            <MidPieChart
+              refs="refsMidPieChart"
+              :colorUpperRight="colorUpperRightEnvironmentalFriendly"
+              :colorBottomRight="colorBottomRightEnvironmentalFriendly"
+              :colorBottomLeft="colorBottomLeftEnvironmentalFriendly"
+              :colorUpperLeft="colorUpperLeftEnvironmentalFriendly"
+              :modeOfPieChart="['水汙染', '空汙', '事業廢棄物', '毒化物']"
+            >
+            </MidPieChart>
+            <!------------<img :src="require('@/assets/environmentalPieChart.png')" style="width: 500px; height: 500px">-------------------->
+          </div>
+          <div class="col-md-4">
+            <div class="text-center">
+              <div class="section-title">
+                <label
+                  style="
+                    font-family: Microsoft JhengHei;
+                    font-size: 36px;
+                    text-align: center;
+                  "
+                  >工安</label
+                ><br /><br /><br />
+              </div>
+            </div>
+            <MidPieChart
+              refs="refsMidPieChart"
+              :colorUpperRight="colorUpperRightWorkerSafety"
+              :colorBottomRight="colorBottomRightWorkerSafety"
+              :colorBottomLeft="colorBottomLeftWorkerSafety"
+              :colorUpperLeft="colorUpperLeftWorkerSafety"
+              :modeOfPieChart="[
+                '保命條款',
+                '不安全行為',
+                '不安全環境',
+                '職災失能',
+              ]"
+            >
+            </MidPieChart>
           </div>
         </div>
       </div>
 
-      <br />
-      <div>
-        <canvas ref="pieChart"></canvas>
-      </div>
-      <br />
+      <button
+        type="button"
+        class="btn-lg"
+        v-bind:onclick="change2importExcel"
+        style="opacity: 0"
+      >
+        匯入資料
+      </button>
 
-      <div class="row justify-content-center">
-        <div class="col-md-4">
-          <div class="text-center">
-            <div class="section-title">
-              <label
-                style="
-                  font-family: Microsoft JhengHei;
-                  font-size: 36px;
-                  text-align: center;
-                "
-                >衛生</label
-              ><br /><br /><br />
-            </div>
-          </div>
-          <MidPieChart
-            refs="refsMidPieChart"
-            :colorUpperRight="colorUpperRightHealthSafety"
-            :colorBottomRight="colorBottomRightHealthSafety"
-            :colorBottomLeft="colorBottomLeftHealthSafety"
-            :colorUpperLeft="colorUpperLeftHealthSafety"
-            :modeOfPieChart="['母性保護', '關懷率', '健康促進', '職業病預防']"
+      <div v-if="btnClickMode == true">
+        <div v-if="mode == 'HealthSafety'">
+          <pieChartView
+            refs="refspieChartView"
+            :modeOfPieChart="modeOfPieChart"
+            :mode="mode"
+            :colorBar="colorBarHealthSafety"
+            :dicLightColor="dictHealthSafety"
           >
-          </MidPieChart>
-          <!---------------<img :src="require('@/assets/healthPieChart.png')" style="width: 500px; height: 500px">-------------------->
+          </pieChartView>
         </div>
-        <div class="col-md-4">
-          <div class="text-center">
-            <div class="section-title">
-              <label
-                style="
-                  font-family: Microsoft JhengHei;
-                  font-size: 36px;
-                  text-align: center;
-                "
-                >環保</label
-              ><br /><br /><br />
-            </div>
-          </div>
-          <MidPieChart
-            refs="refsMidPieChart"
-            :colorUpperRight="colorUpperRightEnvironmentalFriendly"
-            :colorBottomRight="colorBottomRightEnvironmentalFriendly"
-            :colorBottomLeft="colorBottomLeftEnvironmentalFriendly"
-            :colorUpperLeft="colorUpperLeftEnvironmentalFriendly"
-            :modeOfPieChart="['水汙染', '空汙', '事業廢棄物', '毒化物']"
+        <div v-else-if="mode == 'WorkerSafety'">
+          <pieChartView
+            refs="refspieChartView"
+            :modeOfPieChart="modeOfPieChart"
+            :mode="mode"
+            :colorBar="colorBarWorkerSafety"
+            :dicLightColor="dictWorkerSafety"
           >
-          </MidPieChart>
-          <!------------<img :src="require('@/assets/environmentalPieChart.png')" style="width: 500px; height: 500px">-------------------->
+          </pieChartView>
         </div>
-        <div class="col-md-4">
-          <div class="text-center">
-            <div class="section-title">
-              <label
-                style="
-                  font-family: Microsoft JhengHei;
-                  font-size: 36px;
-                  text-align: center;
-                "
-                >工安</label
-              ><br /><br /><br />
-            </div>
-          </div>
-          <MidPieChart
-            refs="refsMidPieChart"
-            :colorUpperRight="colorUpperRightWorkerSafety"
-            :colorBottomRight="colorBottomRightWorkerSafety"
-            :colorBottomLeft="colorBottomLeftWorkerSafety"
-            :colorUpperLeft="colorUpperLeftWorkerSafety"
-            :modeOfPieChart="[
-              '保命條款',
-              '不安全行為',
-              '不安全環境',
-              '職災失能',
-            ]"
+        <div v-else-if="mode == 'EnvironmentalFriendly'">
+          <lineChartView
+            refs="refsLineChartView"
+            :modeOfPieChart="modeOfPieChart"
+            :colorBar="colorBarEnvironmentalFriendly"
+            :mode="mode"
           >
-          </MidPieChart>
+          </lineChartView>
         </div>
       </div>
     </div>
 
-    <button
-      type="button"
-      class="btn-lg"
-      v-bind:onclick="change2importExcel"
-      style="opacity: 0"
-    >
-      匯入資料
-    </button>
-
-    <div v-if="btnClickMode == true">
-      <div v-if="mode == 'HealthSafety'">
-        <pieChartView
-          refs="refspieChartView"
-          :modeOfPieChart="modeOfPieChart"
-          :mode="mode"
-          :colorBar="colorBarHealthSafety"
-          :dicLightColor="dictHealthSafety"
-        >
-        </pieChartView>
+    <div v-if="btnChange2importExcel == true">
+      <userLogin
+        ref="refUserLogin"
+        @loginStatusaFetched="onLoginStatusaFetched"
+      >
+      </userLogin>
+      <div v-if="btnLoginStatus == true">
+        <importExcel refs="refsImportExcel"></importExcel>
       </div>
-      <div v-else-if="mode == 'WorkerSafety'">
-        <pieChartView
-          refs="refspieChartView"
-          :modeOfPieChart="modeOfPieChart"
-          :mode="mode"
-          :colorBar="colorBarWorkerSafety"
-          :dicLightColor="dictWorkerSafety"
-        >
-        </pieChartView>
-      </div>
-      <div v-else-if="mode == 'EnvironmentalFriendly'">
-        <lineChartView
-          refs="refsLineChartView"
-          :modeOfPieChart="modeOfPieChart"
-          :colorBar="colorBarEnvironmentalFriendly"
-          :mode="mode"
-        >
-        </lineChartView>
-      </div>
-    </div>
-  </div>
-
-  <div v-if="btnChange2importExcel == true">
-    <userLogin ref="refUserLogin" @loginStatusaFetched="onLoginStatusaFetched">
-    </userLogin>
-    <div v-if="btnLoginStatus == true">
-      <importExcel refs="refsImportExcel"></importExcel>
     </div>
   </div>
 </template>

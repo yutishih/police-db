@@ -23,6 +23,13 @@ export default {
         }
       });
     }, 1000);
+
+    // 檢查查詢參數
+    if (this.$route.query.view === "secondView") {
+      this.btnFirstPage2SecondPage = true;
+    } else if (this.$route.query.view === "firstView") {
+      this.btnFirstPage2SecondPage = false;
+    }
   },
   data() {
     return {
@@ -46,10 +53,8 @@ export default {
 <template>
   <Navigation />
   <div class="dashboard-wrapper">
-    <div>tempt</div>
     <div v-if="btnFirstPage2SecondPage == false">
-      <!-- <div> -->
-      <firstView ref="refFirstView"></firstView>
+      <firstView ref="refFirstView" :params="params"></firstView>
       <button
         type="button"
         class="btn-lg"
@@ -61,12 +66,12 @@ export default {
     </div>
 
     <div v-if="btnFirstPage2SecondPage == true">
-      <!-- <div> -->
       <secondView
         ref="refSecondView"
         :dictHealthSafety="dictHealthSafety"
         :dictEnvironmentalFriendly="dictEnvironmentalFriendly"
         :dictWorkerSafety="dictWorkerSafety"
+        :params="params"
       ></secondView>
       <button
         type="button"

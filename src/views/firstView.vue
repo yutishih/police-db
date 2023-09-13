@@ -1,25 +1,21 @@
 <script>
-
     import {dictItemEn2ch, airPollutionPath, waterPollutionPath, poisonPath, industrialWastePath} from '../constants/constants.js'
     import apiServices from '../services/apiServices';
     import AjaxAPI from '../components/AjaxAPI.vue';
+
 
     export default{
         name: 'firstView',
         components:{
             AjaxAPI,
         },
-
         mounted(){
-
             this.getEnvironmentalFriendlyValue()
             this.getHealthSafetyValue()
             this.getWorkSafeValue()
             this.getOccupationalDisaster()
-
             this.getWorkSafeHappendDay()
             this.getTrafficAccidentCount()
-           
         },
         data(){
             return {
@@ -33,7 +29,7 @@
                                             'waterPollution': {'finalStatus': 'Ok', 'ImgName': waterPollutionPath},
                                             'poison': {'finalStatus': 'Ok', 'ImgName': poisonPath},
                                             'industrialWaste': {'finalStatus': 'Ok', 'ImgName': industrialWastePath}},
-                //-------------------工安------------------------------------
+                //-------------------工安----------------------------------
                 dictWorkerSafety: {'lifeClause': {'M': '', 'M-1': '', 'M-2': '', 'M-3': '','M-4': '','M-5': ''},
                                     'unsafeEnvironment':  {'M': '', 'M-1': '', 'M-2': '', 'M-3': '','M-4': '','M-5': ''},
                                     'unsafeBehavior': {'M': '', 'M-1': '', 'M-2': '', 'M-3': '','M-4': '','M-5': ''},
@@ -74,8 +70,6 @@
 
             // 從API取得環保資訊
             async getEnvironmentalFriendlyValue(){
-
-                
                 //var apiUrl = apiServices.environmentalFriendlyApiUrl
                 var apiUrl = apiServices.getEnvironmentalFriendlyDataFromDbURL
                 var mode = 'environmentalFriendly'
@@ -86,8 +80,7 @@
                     this.dictEnvironmentalFriendly['waterPollution']['finalStatus'] = passApiInformation['environmentalFriendlyStatus']['WaterPollution']
                     this.dictEnvironmentalFriendly['poison']['finalStatus'] = passApiInformation['environmentalFriendlyStatus']['Poison']
                     this.dictEnvironmentalFriendly['industrialWaste']['finalStatus'] = passApiInformation['environmentalFriendlyStatus']['IndustrialWaste']
-                }                                            
-
+                }
             },
 
             // 從API取得衛生資訊(M to M-5)
@@ -605,17 +598,6 @@
 
         }
     }
-
-    
-
-
-
-    
-    
-
-    
-
-    
 
 </style>
 

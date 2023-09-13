@@ -18,7 +18,6 @@ export default {
           this.dictEnvironmentalFriendly =
             this.$refs.refFirstView.dictEnvironmentalFriendly;
           this.dictWorkerSafety = this.$refs.refFirstView.dictWorkerSafety;
-
           clearInterval(intervalId);
         }
       });
