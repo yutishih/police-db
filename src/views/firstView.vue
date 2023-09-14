@@ -141,128 +141,129 @@
 </script>
 
 <template>    
+    <div>
+        <AjaxAPI ref="refAjaxAPI"></AjaxAPI>
 
-    <AjaxAPI ref="refAjaxAPI"></AjaxAPI>
+        <div class="row justify-content-center">
+            <div class="first-title">公共安全數位儀表板</div>
+        </div>
 
-    <div class="row justify-content-center">
-        <div class="first-title">公共安全數位儀表板</div>
-    </div>
+        <div class="row justify-content-center">
+            <div class="second-title ">&nbsp;南科廠&nbsp;&nbsp;累計<span class="gray-background">&nbsp;{{okDays}}&nbsp;</span>天&nbsp;&nbsp;無工安事故</div>
+        </div>
+        <br>
 
-    <div class="row justify-content-center">
-        <div class="second-title ">&nbsp;南科廠&nbsp;&nbsp;累計<span class="gray-background">&nbsp;{{okDays}}&nbsp;</span>天&nbsp;&nbsp;無工安事故</div>
-    </div>
-    <br>
+        <div class="row justify-content-center">
+            <div class="second-title">&nbsp;南科廠&nbsp;&nbsp;本月累積交通意外件數&nbsp;<span class="gray-background">&nbsp;{{trafficNgDays}}&nbsp;</span></div>
+        </div>
+        <br><br>
+        
+        <div class="row justify-content-center block-wrapper-flex">
+            <!----環保---->
+            <div class="col col-split-one-third">
+                <div class="container-fluid">
+                    <label class="third-title rounded-box">環保</label>
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="col-4" ></th>
+                                <th class="col-8">
+                                    <th class="col fourth-title">南科環保曲線圖</th>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="key in Object.keys(dictEnvironmentalFriendly)">
+                                <td class="col-4 td-style">
+                                    <div style="display: flex; align-items: center;">
+                                        <label class="item-title item-rounded-box">{{ dictItemEn2ch[key] }}</label>
+                                    </div>
+                                </td>
+                                <td class="col-8">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="col">
+                                            <span :class="getStatusClass(dictEnvironmentalFriendly[key]['finalStatus'])"></span>
+                                        </div>
+                                        <div class="col-10">
+                                            <img :src="require('@/assets/' + dictEnvironmentalFriendly[key]['ImgName'])" style="height: 100px ;width: 100%">
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    <div class="row justify-content-center">
-        <div class="second-title">&nbsp;南科廠&nbsp;&nbsp;本月累積交通意外件數&nbsp;<span class="gray-background">&nbsp;{{trafficNgDays}}&nbsp;</span></div>
-    </div>
-    <br><br>
-    
-    <div class="row justify-content-center block-wrapper-flex">
-        <!----環保---->
-        <div class="col col-split-one-third">
-            <div class="container-fluid">
-                <label class="third-title rounded-box">環保</label>
-                <table style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th class="col-4" ></th>
-                            <th class="col-8">
-                                <th class="col fourth-title">南科環保曲線圖</th>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="key in Object.keys(dictEnvironmentalFriendly)">
-                            <td class="col-4 td-style">
-                                <div style="display: flex; align-items: center;">
+            <!----工安---->
+            <div class="col col-split-one-third">
+                <div class="container-fluid">
+                    <label class="third-title rounded-box">工安</label>
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="col-4"></th>
+                                <th class="col-2 fourth-title">Array</th>
+                                <th class="col-2 fourth-title">CF</th>
+                                <th class="col-2 fourth-title">Cell</th>
+                                <th class="col-2 fourth-title">MDL</th>
+                                <th class="col-2 fourth-title">FAC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="key in Object.keys(dictWorkerSafety)">
+                                <td class="col-4 td-style">
                                     <label class="item-title item-rounded-box">{{ dictItemEn2ch[key] }}</label>
-                                </div>
-                            </td>
-                            <td class="col-8">
-                                <div style="display: flex; align-items: center;">
-                                    <div class="col">
-                                        <span :class="getStatusClass(dictEnvironmentalFriendly[key]['finalStatus'])"></span>
-                                    </div>
-                                    <div class="col-10">
-                                        <img :src="require('@/assets/' + dictEnvironmentalFriendly[key]['ImgName'])" style="height: 100px ;width: 100%">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                </td>
+                                <template  v-if="key!='occupationalDisaster'">
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['Array-status'])">{{ dictWorkerSafety[key]['M']['Array'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['CF-status'])">{{ dictWorkerSafety[key]['M']['CF'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['Cell-status'])">{{ dictWorkerSafety[key]['M']['Cell'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['MDL-status'])">{{ dictWorkerSafety[key]['M']['MDL'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['FAC-status'])">{{ dictWorkerSafety[key]['M']['FAC'] }}</span></td>
+                                </template >
+                                <template  v-else>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['Array-status'])">{{ dictWorkerSafety[key]['thisYear']['Array'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['CF-status'])">{{ dictWorkerSafety[key]['thisYear']['CF'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['Cell-status'])">{{ dictWorkerSafety[key]['thisYear']['Cell'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['MDL-status'])">{{ dictWorkerSafety[key]['thisYear']['MDL'] }}</span></td>
+                                    <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['FAC-status'])">{{ dictWorkerSafety[key]['thisYear']['FAC'] }}</span></td>
+                                </template >
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-        <!----工安---->
-        <div class="col col-split-one-third">
-            <div class="container-fluid">
-                <label class="third-title rounded-box">工安</label>
-                <table style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th class="col-4"></th>
-                            <th class="col-2 fourth-title">Array</th>
-                            <th class="col-2 fourth-title">CF</th>
-                            <th class="col-2 fourth-title">Cell</th>
-                            <th class="col-2 fourth-title">MDL</th>
-                            <th class="col-2 fourth-title">FAC</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="key in Object.keys(dictWorkerSafety)">
-                            <td class="col-4 td-style">
-                                <label class="item-title item-rounded-box">{{ dictItemEn2ch[key] }}</label>
-                            </td>
-                            <template  v-if="key!='occupationalDisaster'">
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['Array-status'])">{{ dictWorkerSafety[key]['M']['Array'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['CF-status'])">{{ dictWorkerSafety[key]['M']['CF'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['Cell-status'])">{{ dictWorkerSafety[key]['M']['Cell'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['MDL-status'])">{{ dictWorkerSafety[key]['M']['MDL'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['M']['FAC-status'])">{{ dictWorkerSafety[key]['M']['FAC'] }}</span></td>
-                            </template >
-                            <template  v-else>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['Array-status'])">{{ dictWorkerSafety[key]['thisYear']['Array'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['CF-status'])">{{ dictWorkerSafety[key]['thisYear']['CF'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['Cell-status'])">{{ dictWorkerSafety[key]['thisYear']['Cell'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['MDL-status'])">{{ dictWorkerSafety[key]['thisYear']['MDL'] }}</span></td>
-                                <td class="col-2 item-value"><span :class="getStatusClass(dictWorkerSafety[key]['thisYear']['FAC-status'])">{{ dictWorkerSafety[key]['thisYear']['FAC'] }}</span></td>
-                            </template >
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!----衛生---->
-        <div class="col col-split-one-third">
-            <div class="container-fluid">
-                <label class="third-title rounded-box">衛生</label>
-                <table style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th class="col-4"></th>
-                            <th class="col-2 fourth-title">Array</th>
-                            <th class="col-2 fourth-title">CF</th>
-                            <th class="col-2 fourth-title">Cell</th>
-                            <th class="col-2 fourth-title">MDL</th>
-                            <th class="col-2 fourth-title">FAC</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="key in Object.keys(dictHealthSafety)">
-                            <td class="col-4 td-style" >
-                                <label class="item-title item-rounded-box">{{ dictItemEn2ch[key] }}</label>
-                            </td>
-                            <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['Array'])">{{ dictHealthSafety[key]['ComePerson']['Array'] }}</span></td>
-                            <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['CF'])">{{ dictHealthSafety[key]['ComePerson']['CF'] }}</span></td>
-                            <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['Cell'])">{{ dictHealthSafety[key]['ComePerson']['Cell'] }}</span></td>
-                            <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['MDL'])">{{ dictHealthSafety[key]['ComePerson']['MDL'] }}</span></td>
-                            <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['FAC'])">{{ dictHealthSafety[key]['ComePerson']['FAC'] }}</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!----衛生---->
+            <div class="col col-split-one-third">
+                <div class="container-fluid">
+                    <label class="third-title rounded-box">衛生</label>
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="col-4"></th>
+                                <th class="col-2 fourth-title">Array</th>
+                                <th class="col-2 fourth-title">CF</th>
+                                <th class="col-2 fourth-title">Cell</th>
+                                <th class="col-2 fourth-title">MDL</th>
+                                <th class="col-2 fourth-title">FAC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="key in Object.keys(dictHealthSafety)">
+                                <td class="col-4 td-style" >
+                                    <label class="item-title item-rounded-box">{{ dictItemEn2ch[key] }}</label>
+                                </td>
+                                <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['Array'])">{{ dictHealthSafety[key]['ComePerson']['Array'] }}</span></td>
+                                <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['CF'])">{{ dictHealthSafety[key]['ComePerson']['CF'] }}</span></td>
+                                <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['Cell'])">{{ dictHealthSafety[key]['ComePerson']['Cell'] }}</span></td>
+                                <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['MDL'])">{{ dictHealthSafety[key]['ComePerson']['MDL'] }}</span></td>
+                                <td class="col-2 item-value"><span :class="getStatusClass(dictHealthSafety[key]['M']['FAC'])">{{ dictHealthSafety[key]['ComePerson']['FAC'] }}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

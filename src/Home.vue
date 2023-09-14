@@ -50,7 +50,7 @@ export default {
       <button
         type="button"
         class="btn-lg"
-        v-bind:onclick="firstPage2SecondPage"
+        @click="firstPage2SecondPage"
         style="opacity: 0"
       >
         下一頁
@@ -68,7 +68,7 @@ export default {
       <button
         type="button"
         class="btn-lg"
-        v-bind:onclick="secondPage2FirstPage"
+        @click="secondPage2FirstPage"
         style="opacity: 0"
       >
         上一頁

@@ -21,26 +21,26 @@
                   class="fa-solid fa-helmet-safety"
                   style="color: #ffffff"
                 ></i>
-                <p>公安</p></a
+                <p>原始首頁</p></a
+              >
+            </div>
+          </li>
+          <li class="list-item">
+            <div class="div-flex">
+              <a href="#/dashboard"
+                ><i
+                  class="fa-solid fa-spray-can-sparkles"
+                  style="color: #ffffff"
+                ></i>
+                <p>面板首頁</p></a
               >
             </div>
           </li>
           <li class="list-item">
             <div class="div-flex">
               <a href="#/hsd"
-                ><i
-                  class="fa-solid fa-spray-can-sparkles"
-                  style="color: #ffffff"
-                ></i>
-                <p>衛生</p></a
-              >
-            </div>
-          </li>
-          <li class="list-item">
-            <div class="div-flex">
-              <a href="#"
                 ><i class="fa-solid fa-seedling" style="color: #ffffff"></i>
-                <p>環安</p></a
+                <p>公共安全</p></a
               >
             </div>
           </li>

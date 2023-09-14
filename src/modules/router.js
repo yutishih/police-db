@@ -11,10 +11,14 @@ const router = createRouter({
 
         },
         {
-            path: "/thome",
-            name: '臨時首頁',
-            component: () => import('../TemporaryHome.vue'),
-            //params: update url
+            path: "/dashboard",
+            name: 'dashboard',
+            component: () => import('../Home1.vue'),
+        },
+        {
+            path: "/hsd",
+            name: 'hsd',
+            component: () => import('../Home2.vue'),
             props: (route) => ({ view: route.query.view })
         }
 

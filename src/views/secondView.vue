@@ -1,4 +1,5 @@
 <script>
+//graphs
 import Chart from "chart.js/auto";
 import pieChartView from "./pieChartView.vue";
 import lineChartView from "./lineChartView.vue";
@@ -16,6 +17,7 @@ import {
 export default {
   name: "secondView",
   components: {
+    //--graphs--
     pieChartView,
     lineChartView,
     MidPieChart,
@@ -23,28 +25,60 @@ export default {
     userLogin,
     watchScreenSize,
   },
+  mounted() {
+    this.showHSDPieChart();
+    this.paramsView = this.$route.query.params;
+
+    if (this.paramsView === "0") {
+      this.modeOfPieChart = [
+        "保命條款",
+        "不安全行為",
+        "不安全環境",
+        "職災失能",
+      ];
+      this.mode = "WorkerSafety";
+      this.btnClickMode = true;
+    } else if (this.paramsView === "1") {
+      this.modeOfPieChart = ["水汙染", "空汙", "事業廢棄物", "毒化物"];
+      this.mode = "EnvironmentalFriendly";
+      this.btnClickMode = true;
+    } else if (this.paramsView === "2") {
+      this.modeOfPieChart = ["母性保護", "關懷率", "健康促進", "職業病預防"];
+      this.mode = "HealthSafety";
+      this.btnClickMode = true;
+    }
+  },
   props: [
     "dictHealthSafety",
     "dictEnvironmentalFriendly",
     "dictWorkerSafety",
-    "params",
+    "okDays",
   ],
-  mounted() {
-    //Making sure the props have been loaded
-    //if not, do it
-    if (!this.dictHealthSafety) {
-      this.getHealthSafetyValue();
-    }
-    if (!this.dictEnvironmentalFriendly) {
-      this.getEnvironmentalFriendlyValue();
-    }
-    if (!this.dictWorkerSafety) {
-      this.getWorkSafeValue();
-    }
-
-    this.showHSDPieChart();
-  },
   watch: {
+    $route(to, from) {
+      this.paramsView = to.query.params;
+      if (!this.paramsView) {
+        // 當params參數不存在時的操作
+        this.btnClickMode = false;
+      } else if (this.paramsView === "0") {
+        this.modeOfPieChart = [
+          "保命條款",
+          "不安全行為",
+          "不安全環境",
+          "職災失能",
+        ];
+        this.mode = "WorkerSafety";
+        this.btnClickMode = true;
+      } else if (this.paramsView === "1") {
+        this.modeOfPieChart = ["水汙染", "空汙", "事業廢棄物", "毒化物"];
+        this.mode = "EnvironmentalFriendly";
+        this.btnClickMode = true;
+      } else if (this.paramsView === "2") {
+        this.modeOfPieChart = ["母性保護", "關懷率", "健康促進", "職業病預防"];
+        this.mode = "HealthSafety";
+        this.btnClickMode = true;
+      }
+    },
     btnChange2importExcel(newValue, oldValue) {
       if (newValue != oldValue) {
         this.showHSDPieChart();
@@ -59,6 +93,8 @@ export default {
   },
   data() {
     return {
+      //Params
+      paramsView: null,
       // 判斷HSD圓餅圖有無被點選
       btnClickMode: false,
 
@@ -207,6 +243,8 @@ export default {
                 ];
                 self.mode = "WorkerSafety";
                 self.btnClickMode = true;
+                self.paramsView = "0";
+                self.$router.push({ query: { params: self.paramsView } });
               } else if (index === 1) {
                 // 環保
                 self.modeOfPieChart = [
@@ -217,6 +255,8 @@ export default {
                 ];
                 self.mode = "EnvironmentalFriendly";
                 self.btnClickMode = true;
+                self.paramsView = "1";
+                self.$router.push({ query: { params: self.paramsView } });
               } else if (index === 2) {
                 // 衛生
                 self.modeOfPieChart = [
@@ -227,6 +267,8 @@ export default {
                 ];
                 self.mode = "HealthSafety";
                 self.btnClickMode = true;
+                self.paramsView = "2";
+                self.$router.push({ query: { params: self.paramsView } });
               }
             }
           },
@@ -396,7 +438,7 @@ export default {
                   font-weight: bold;
                 "
                 >HSD公共安全指標</label
-              ><br /><br /><br />
+              >
             </div>
           </div>
         </div>
@@ -430,7 +472,7 @@ export default {
               :modeOfPieChart="['母性保護', '關懷率', '健康促進', '職業病預防']"
             >
             </MidPieChart>
-            <!---------------<img :src="require('@/assets/healthPieChart.png')" style="width: 500px; height: 500px">-------------------->
+            <!-- <<img :src="require('@/assets/healthPieChart.png')" style="width: 500px; height: 500px"> -->
           </div>
           <div class="col-md-4">
             <div class="text-center">
