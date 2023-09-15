@@ -1,12 +1,14 @@
 <script>
 import firstView from "./views/firstView.vue";
 import Navigation from "./components/Navigation.vue";
+import TopToolBar from "./components/TopToolBar.vue";
 
 export default {
   name: "dashboard",
   components: {
     firstView,
     Navigation,
+    TopToolBar,
   },
   mounted() {
     const intervalId = setInterval(() => {
@@ -33,8 +35,9 @@ export default {
 
 <template>
   <Navigation />
+  <TopToolBar />
   <div class="dashboard-wrapper">
-    <div>
+    <div class="background-color-wrapper">
       <firstView ref="refFirstView"></firstView>
     </div>
   </div>
@@ -45,5 +48,8 @@ export default {
   max-width: 100vw;
   width: 100%;
   height: auto;
+}
+.background-color-wrapper {
+  background-color: #f6f6f6;
 }
 </style>

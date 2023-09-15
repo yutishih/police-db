@@ -19,7 +19,6 @@ const router = createRouter({
             path: "/hsd",
             name: 'hsd',
             component: () => import('../Home2.vue'),
-            props: (route) => ({ view: route.query.view })
         }
 
     ]
