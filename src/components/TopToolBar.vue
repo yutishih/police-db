@@ -57,6 +57,11 @@ const handleMouseOut = () => {
   width: 100%;
   height: 80px;
 }
+.toolbar .title h1 {
+  color: rgb(15, 74, 169);
+  font-size: 36px;
+  font-weight: 600;
+}
 .admin-login {
   position: absolute;
   right: 0;
@@ -126,5 +131,14 @@ const handleMouseOut = () => {
 }
 .login-wrapper ul li svg {
   padding-right: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  .toolbar .title h1 {
+    font-size: 20px;
+  }
+  .text {
+    display: none;
+  }
 }
 </style>

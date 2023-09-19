@@ -2,7 +2,9 @@
   <nav ref="navElement">
     <div class="toggle-on" @click="toggleNav">
       <div class="toggle-wrapper">
-        <i class="fa-solid fa-table fa-xl"></i>
+        <div class="toggle-bg">
+          <i class="fa-solid fa-table fa-xl"></i>
+        </div>
       </div>
     </div>
     <div class="nav-wrapper">
@@ -145,6 +147,7 @@ export default {
   width: 100px;
   height: 80px;
   top: 0;
+  z-index: 9999;
 }
 .toggle-off {
   position: absolute;
@@ -159,5 +162,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.toggle-bg {
+  padding: 10px;
+  background-color: #f6f6f6;
+  border-radius: 5px;
+}
+.toggle-bg:hover {
+  background-color: #cdc9c9;
+  transition: background-color 0.5s;
 }
 </style>

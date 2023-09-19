@@ -1,12 +1,12 @@
 <script>
-import firstView from "./views/firstView.vue";
+import firstView2 from "./views/firstView2.vue";
 import Navigation from "./components/Navigation.vue";
 import TopToolBar from "./components/TopToolBar.vue";
 
 export default {
   name: "dashboard",
   components: {
-    firstView,
+    firstView2,
     Navigation,
     TopToolBar,
   },
@@ -38,7 +38,7 @@ export default {
   <TopToolBar />
   <div class="dashboard-wrapper">
     <div class="background-color-wrapper">
-      <firstView ref="refFirstView"></firstView>
+      <firstView2 ref="refFirstView"></firstView2>
     </div>
   </div>
 </template>

@@ -8,13 +8,13 @@ import {
 } from "./constants/constants.js";
 import apiServices from "./services/apiServices";
 import AjaxAPI from "./components/AjaxAPI.vue";
-import secondView from "./views/secondView.vue";
+import secondView2 from "./views/secondView2.vue";
 import Navigation from "./components/Navigation.vue";
 
 export default {
   name: "hsd",
   components: {
-    secondView,
+    secondView2,
     Navigation,
   },
   mounted() {
@@ -243,14 +243,14 @@ export default {
   <Navigation />
   <div class="dashboard-wrapper">
     <div>
-      <secondView
+      <secondView2
         ref="refSecondView"
         :dictEnvironmentalFriendly="dictEnvironmentalFriendly"
         :dictHealthSafety="dictHealthSafety"
         :dictWorkerSafety="dictWorkerSafety"
         :okDays="okDays"
       >
-      </secondView>
+      </secondView2>
     </div>
   </div>
 </template>
