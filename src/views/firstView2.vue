@@ -26,7 +26,7 @@ export default {
     return {
       //----------導覽Bar按鈕狀態-------------------------------
       okDays: "",
-      trafficNgDays: "",
+      trafficNgDays: "0",
 
       //-------------------環保------------------------------------
       dictEnvironmentalFriendly: {
@@ -239,16 +239,33 @@ export default {
     <div class="accident-count-wrapper">
       <div class="accident-flex">
         <div class="row justify-content-center box-bg-color">
-          <div class="second-title">
-            南科廠累計<span class="gray-background">{{ okDays }}</span
-            >天無工安事故
+          <div class="second-title card-wrapper-flex">
+            <div class="text-wrapper card-padding">
+              <p class="manufactory">瀚宇彩晶南科廠</p>
+              <p class="non-accident-days sub-title">無工安事故累計天數</p>
+            </div>
+            <div class="seperation-line"></div>
+            <div class="days-count card-padding">
+              <div class="text-wrap-style">
+                <p class="okdays">{{ okDays ? okDays : 0 }}<span>天</span></p>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row justify-content-center box-bg-color">
-          <div class="second-title">
-            南科廠本月累積交通意外件數<span class="gray-background">{{
-              trafficNgDays
-            }}</span>
+          <div class="second-title card-wrapper-flex">
+            <div class="text-wrapper card-padding">
+              <p class="manufactory">瀚宇彩晶南科廠</p>
+              <p class="monthly-accidents sub-title">本月累積交通意外件數</p>
+            </div>
+            <div class="seperation-line"></div>
+            <div class="accident-count card-padding">
+              <div class="text-wrap-style">
+                <p class="trafficNgDays">
+                  {{ trafficNgDays ? trafficNgDays : 0 }}<span>件</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -499,6 +516,10 @@ export default {
 .dashboard-home-page {
   padding: 15px 0;
 }
+.dashboard-home-page p {
+  padding: 0;
+  margin: 0;
+}
 .dashboard-home-page .col-2 {
   padding: 0;
 }
@@ -533,11 +554,43 @@ export default {
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.03);
   margin: 20px 15px;
 }
+.card-wrapper-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .container-padding {
   padding: 20px;
 }
 .content-table-margin {
   margin: 0 2px;
+}
+.days-count,
+.accident-count {
+  text-align: right;
+}
+.manufactory {
+  font-size: 32px;
+  color: rgb(0, 176, 240);
+}
+.card-padding {
+  padding: 0 30px;
+}
+.seperation-line {
+  position: relative;
+  border-right: 2px solid rgb(129, 215, 247);
+  height: 50%;
+  padding: 10px 0;
+}
+.text-wrap-style p {
+  font-size: 7rem;
+  margin: 0;
+  padding: 0;
+}
+.text-wrap-style span {
+  font-size: 4rem;
+  padding: 0 10px;
+  color: rgb(0, 176, 240);
 }
 .col-split-one-third {
   width: 30%;
@@ -792,6 +845,12 @@ export default {
   .item-title {
     font-size: 16px;
   }
+  .text-wrap-style p {
+    font-size: 4rem;
+  }
+  .sub-title {
+    font-size: 32px;
+  }
 }
 @media (max-width: 1400px) {
   .item-title {
@@ -808,6 +867,25 @@ export default {
   }
   .box-shadow-wrap-left {
     margin: 0 15px 15px 15px;
+  }
+  .text-wrap-style p {
+    font-size: 3rem;
+  }
+  .text-wrap-style span {
+    font-size: 2rem;
+  }
+  .sub-title {
+    font-size: 24px;
+  }
+}
+@media (max-width: 980px) {
+  .accident-flex {
+    display: block;
+    margin: 0 15px;
+  }
+  .box-bg-color {
+    width: 100%;
+    margin: 20px 0;
   }
 }
 @media (max-width: 768px) {
@@ -865,6 +943,31 @@ export default {
     font-weight: bold;
     color: rgb(11, 55, 127);
     font-size: 24px;
+  }
+}
+@media (max-width: 480px) {
+  .text-wrapper p {
+    font-size: 20px;
+  }
+  .text-wrap-style p {
+    font-size: 2rem;
+  }
+  .text-wrap-style span {
+    font-size: 1rem;
+  }
+  .sub-title {
+    font-size: 24px;
+  }
+}
+@media (max-width: 400px) {
+  .text-wrapper p {
+    font-size: 16px;
+  }
+  .text-wrap-style p {
+    font-size: 16px;
+  }
+  .text-wrap-style span {
+    font-size: 16px;
   }
 }
 </style>

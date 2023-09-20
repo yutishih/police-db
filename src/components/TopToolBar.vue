@@ -3,12 +3,16 @@ import { ref } from "vue";
 import hannstarIcon_1 from "@/assets/hannstarIcon_1.png";
 
 const isHovered = ref(false);
+let hideTimeout;
 
-const handleMouseOver = () => {
+const handleMouseEnter = () => {
+  clearTimeout(hideTimeout);
   isHovered.value = true;
 };
-const handleMouseOut = () => {
-  isHovered.value = false;
+const handleMouseLeave = () => {
+  hideTimeout = setTimeout(() => {
+    isHovered.value = false;
+  }, 300);
 };
 </script>
 
@@ -18,12 +22,9 @@ const handleMouseOut = () => {
       <div class="toolbar">
         <div class="title"><h1>公共安全數位儀表板</h1></div>
         <div class="admin-login">
-          <div
-            class="login-button"
-            @mouseover="handleMouseOver"
-            @mouseout="handleMouseOut"
-          >
-            <div class="login-flex">
+          <div class="login-button" @mouseleave="handleMouseLeave">
+            <!-- 減少或移除間距? -->
+            <div class="login-flex" @mouseenter="handleMouseEnter">
               <div class="image">
                 <img :src="hannstarIcon_1" />
               </div>
@@ -135,10 +136,15 @@ const handleMouseOut = () => {
 
 @media only screen and (max-width: 768px) {
   .toolbar .title h1 {
-    font-size: 20px;
+    font-size: 28px;
   }
   .text {
     display: none;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .toolbar .title h1 {
+    font-size: 20px;
   }
 }
 </style>
