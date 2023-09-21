@@ -22,9 +22,12 @@ const handleMouseLeave = () => {
       <div class="toolbar">
         <div class="title"><h1>公共安全數位儀表板</h1></div>
         <div class="admin-login">
-          <div class="login-button" @mouseleave="handleMouseLeave">
-            <!-- 減少或移除間距? -->
-            <div class="login-flex" @mouseenter="handleMouseEnter">
+          <div
+            class="login-button"
+            @mouseleave="handleMouseLeave"
+            @mouseenter="handleMouseEnter"
+          >
+            <div class="login-flex">
               <div class="image">
                 <img :src="hannstarIcon_1" />
               </div>
@@ -99,6 +102,7 @@ const handleMouseLeave = () => {
   top: 60px;
   right: 5px;
   width: 160px;
+  z-index: 100;
   cursor: pointer;
 }
 .login {
